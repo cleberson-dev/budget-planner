@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import { entries } from "./data"
+import EntryList from "./component/EntryList"
 
 const Container = styled.header`
   background-color: #282c34;
@@ -67,6 +69,8 @@ function App() {
         <CreateIncomeButton>Criar receita</CreateIncomeButton>
         <CreateExpenseButton>Criar despesa</CreateExpenseButton>
       </Actions>
+
+      <EntryList list={entries} />
     </Container>
   )
 }

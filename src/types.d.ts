@@ -12,3 +12,14 @@ type Category = {
   color?: string
   icon?: string
 }
+
+type Entry = {
+  id: string
+  type: EntryTypes
+  description: string
+  value: number
+  createdAt: Date
+  accountId: string
+}
+
+type EntryTypes = "EXPENSE" | "INCOME"
