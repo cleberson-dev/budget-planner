@@ -1,16 +1,7 @@
 import styled from "styled-components"
 import EntryList from "../components/EntryList"
 import { entries } from "../data"
-
-const Container = styled.header`
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  padding: 0 1.25rem;
-`
+import { useNavigate } from "react-router-dom"
 
 const Greeting = styled.h2`
   margin: 0;
@@ -44,6 +35,11 @@ const Button = styled.button`
   padding: 1rem;
   cursor: pointer;
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   :hover {
     opacity: 0.8;
   }
@@ -58,20 +54,30 @@ const CreateIncomeButton = styled(Button)`
 `
 
 const HomeScreen = (): JSX.Element => {
+  const navigate = useNavigate()
+
+  const goToCreation = (entryType: EntryTypes) => {
+    navigate("/create", { state: { entryType } })
+  }
+
   return (
-    <Container>
+    <main>
       <Date>16 de Julho de 2022</Date>
       <Greeting>Oi, Cleberson!</Greeting>
       <p>
         Seu saldo atual é <Price>R$1.219,32</Price>
       </p>
       <Actions>
-        <CreateIncomeButton>Criar receita</CreateIncomeButton>
-        <CreateExpenseButton>Criar despesa</CreateExpenseButton>
+        <CreateIncomeButton onClick={() => goToCreation("INCOME")}>
+          Criar receita
+        </CreateIncomeButton>
+        <CreateExpenseButton onClick={() => goToCreation("EXPENSE")}>
+          Criar despesa
+        </CreateExpenseButton>
       </Actions>
 
       <EntryList list={entries.slice(0, 5)} />
-    </Container>
+    </main>
   )
 }
 
