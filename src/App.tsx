@@ -70,7 +70,7 @@ function App() {
         <CreateExpenseButton>Criar despesa</CreateExpenseButton>
       </Actions>
 
-      <EntryList list={entries} />
+      <EntryList list={entries.slice(0, 5)} />
     </Container>
   )
 }
