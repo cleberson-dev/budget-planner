@@ -3,10 +3,12 @@ import { persist } from "zustand/middleware"
 import { mountStoreDevtool } from "simple-zustand-devtools"
 import * as data from "./data"
 import { v4 as uuid } from "uuid"
+import EntryList from "./components/EntryList"
 
 type AppState = {
   accounts: Account[]
   addEntry: (payload: Omit<Entry, "id">) => void
+  updateEntry: (changedEntry: Entry) => void
   removeEntry: (accountId: string, entryId: string) => void
 }
 
@@ -36,6 +38,20 @@ const useStore = createStore(
             }
 
             return { ...account, entries: [newEntry, ...account.entries] }
+          }),
+        })),
+      updateEntry: (changedEntry) =>
+        set((state) => ({
+          accounts: state.accounts.map((acc) => {
+            if (acc.id !== changedEntry.accountId) return acc
+
+            return {
+              ...acc,
+              entries: acc.entries.map((entry) => {
+                if (entry.id !== changedEntry.id) return entry
+                return changedEntry
+              }),
+            }
           }),
         })),
       removeEntry: (accountId: string, entryId: string) =>

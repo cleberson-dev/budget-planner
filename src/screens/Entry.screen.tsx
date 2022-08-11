@@ -76,7 +76,7 @@ const EntryScreen = (): JSX.Element => {
   const location = useLocation()
   const navigate = useNavigate()
   const entry = (location.state as any).entry as Entry
-  const { register } = useForm({
+  const { register, getValues } = useForm({
     defaultValues: {
       value: `${entry.value}`,
       description: entry.description,
@@ -86,6 +86,21 @@ const EntryScreen = (): JSX.Element => {
   })
   const accounts = useStore((state) => state.accounts)
   const removeEntry = useStore((state) => state.removeEntry)
+  const updateEntry = useStore((state) => state.updateEntry)
+
+  const onUpdateEntry = () => {
+    const changedEntry = getValues()
+    updateEntry({
+      id: entry.id,
+      type: entry.type,
+      accountId: entry.accountId,
+      value: Number(changedEntry.value),
+      createdAt: new Date(changedEntry.createdAt),
+      description: changedEntry.description,
+    })
+
+    navigate("/")
+  }
 
   const onRemoveEntry = () => {
     removeEntry(entry.accountId, entry.id)
@@ -114,7 +129,7 @@ const EntryScreen = (): JSX.Element => {
         <div style={{ display: "flex", width: "100%" }}>
           <FormGroup>
             <Label>Conta</Label>
-            <Input as="select" {...register("accountId")}>
+            <Input disabled as="select" {...register("accountId")}>
               {accounts.map((acc) => (
                 <option value={acc.id}>{acc.name}</option>
               ))}
@@ -133,6 +148,7 @@ const EntryScreen = (): JSX.Element => {
         </FormGroup>
       </Form>
 
+      <Button onClick={onUpdateEntry}>Update</Button>
       <Button onClick={onRemoveEntry}>Remove</Button>
     </Main>
   )
