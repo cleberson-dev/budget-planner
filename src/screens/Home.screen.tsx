@@ -57,6 +57,7 @@ const HomeScreen = (): JSX.Element => {
   const entries = useStore((state) =>
     state.accounts.map((acc) => acc.entries).flat()
   )
+  console.log({ entries })
   const navigate = useNavigate()
 
   const goToCreation = (entryType: EntryTypes) => {
