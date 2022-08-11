@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid"
 type AppState = {
   accounts: Account[]
   addEntry: (payload: Omit<Entry, "id">) => void
+  removeEntry: (accountId: string, entryId: string) => void
 }
 
 type DeserializedAccount = Omit<Account, "createdAt" | "entries"> & {
@@ -35,6 +36,17 @@ const useStore = createStore(
             }
 
             return { ...account, entries: [newEntry, ...account.entries] }
+          }),
+        })),
+      removeEntry: (accountId: string, entryId: string) =>
+        set((state) => ({
+          accounts: state.accounts.map((acc) => {
+            if (acc.id !== accountId) return acc
+
+            return {
+              ...acc,
+              entries: acc.entries.filter((entry) => entry.id !== entryId),
+            }
           }),
         })),
     }),

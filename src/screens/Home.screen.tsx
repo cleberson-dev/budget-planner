@@ -100,7 +100,10 @@ const HomeScreen = (): JSX.Element => {
         </CreateExpenseButton>
       </Actions>
 
-      <EntryList list={entries.slice(0, 5)} />
+      <EntryList
+        list={entries.slice(0, 5)}
+        onEntryClick={(entry) => navigate("/entry", { state: { entry } })}
+      />
     </main>
   )
 }

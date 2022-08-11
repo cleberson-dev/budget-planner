@@ -27,6 +27,7 @@ npm run desktop
 - [X] Create incomes/expenses from a form
 - [X] Show Today on Home Header
 - [X] Set today as default for entry creation
+- [] Edit/Remove entries
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Change defining expense/income based on positive/negative instead of entry type

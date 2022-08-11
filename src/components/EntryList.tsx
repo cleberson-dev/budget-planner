@@ -5,6 +5,7 @@ import { formatToBRLCurrency } from "../utils"
 
 type EntryListProps = {
   list: Entry[]
+  onEntryClick?: (entry: Entry) => void
 }
 
 function getColorByEntryType(entryType: EntryTypes) {
@@ -65,11 +66,11 @@ const Price = styled.p<{ type: EntryTypes }>`
   color: ${({ type }) => getColorByEntryType(type)};
 `
 
-const EntryList = ({ list }: EntryListProps): JSX.Element => {
+const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
   return (
     <Container>
       {list.map((entry) => (
-        <EntryItem key={entry.id}>
+        <EntryItem key={entry.id} onClick={() => onEntryClick?.(entry)}>
           <EntryBullet type={entry.type} />
           <Main>
             <Description>{entry.description}</Description>

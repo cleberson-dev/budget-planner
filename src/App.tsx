@@ -2,6 +2,7 @@ import { AnimatePresence } from "framer-motion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import styled from "styled-components"
 import CreateScreen from "./screens/Create.screen"
+import EntryScreen from "./screens/Entry.screen"
 import HomeScreen from "./screens/Home.screen"
 
 const Container = styled.div`
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route index element={<HomeScreen />} />
             <Route path="create" element={<CreateScreen />} />
+            <Route path="entry" element={<EntryScreen />} />
           </Routes>
         </Router>
       </Container>
