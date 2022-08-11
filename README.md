@@ -17,3 +17,16 @@ npm i
 ```bash
 npm run desktop
 ```
+
+
+## Tasks
+- [] Create global store with zustand
+- [] Persist the data
+- [] Allow exportation of the data
+- [] Show balance based on incomes/expenses
+- [] Create incomes/expenses from a form
+- [] Allow creation of more accounts
+- [] Permit future incomes/expenses
+- [] Show current and future balance for the end of the month
+- [] Suggest already created incomes/expenses
+- [] Reestructure folders and files
