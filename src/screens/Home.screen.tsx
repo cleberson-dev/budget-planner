@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import EntryList from "../components/EntryList"
-import { entries } from "../data"
+import useStore from "../store"
 import { useNavigate } from "react-router-dom"
 
 const Greeting = styled.h2`
@@ -54,6 +54,9 @@ const CreateIncomeButton = styled(Button)`
 `
 
 const HomeScreen = (): JSX.Element => {
+  const entries = useStore((state) =>
+    state.accounts.map((acc) => acc.entries).flat()
+  )
   const navigate = useNavigate()
 
   const goToCreation = (entryType: EntryTypes) => {

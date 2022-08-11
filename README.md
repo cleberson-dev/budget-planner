@@ -20,7 +20,7 @@ npm run desktop
 
 
 ## Tasks
-- [] Create global store with zustand
+- [X] Create global store with zustand
 - [] Persist the data
 - [] Allow exportation of the data
 - [] Show balance based on incomes/expenses

@@ -23,3 +23,10 @@ type Entry = {
 }
 
 type EntryTypes = "EXPENSE" | "INCOME"
+
+type Account = {
+  id: string
+  name: string
+  createdAt: Date
+  entries: Entry[]
+}
