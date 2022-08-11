@@ -24,9 +24,10 @@ npm run desktop
 - [X] Persist the data
 - [X] Add DevTools for Global State Debugging
 - [X] Show balance based on incomes/expenses of all accounts
+- [X] Create incomes/expenses from a form
 - [] Allow exportation of the data
-- [] Create incomes/expenses from a form
 - [] Allow creation of more accounts
+- [] Change defining expense/income based on positive/negative instead of entry type
 - [] Permit future incomes/expenses
 - [] Show current and future balance for the end of the month
 - [] Suggest already created incomes/expenses
