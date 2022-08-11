@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import ptBR from "date-fns/locale/pt-BR"
 import format from "date-fns/format"
+import { formatToBRLCurrency } from "../utils"
 
 type EntryListProps = {
   list: Entry[]
@@ -79,11 +80,8 @@ const EntryList = ({ list }: EntryListProps): JSX.Element => {
             </Details>
           </Main>
           <Price type={entry.type}>
-            {{ INCOME: "+", EXPENSE: "-" }[entry.type]} R$
-            {entry.value.toLocaleString("pt-BR", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            {{ INCOME: "+", EXPENSE: "-" }[entry.type]}{" "}
+            {formatToBRLCurrency(entry.value)}
           </Price>
         </EntryItem>
       ))}

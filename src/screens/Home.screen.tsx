@@ -2,6 +2,7 @@ import styled from "styled-components"
 import EntryList from "../components/EntryList"
 import useStore from "../store"
 import { useNavigate } from "react-router-dom"
+import { formatToBRLCurrency } from "../utils"
 
 const Greeting = styled.h2`
   margin: 0;
@@ -57,7 +58,20 @@ const HomeScreen = (): JSX.Element => {
   const entries = useStore((state) =>
     state.accounts.map((acc) => acc.entries).flat()
   )
-  console.log({ entries })
+  const totalBalance = useStore((state) =>
+    state.accounts.reduce(
+      (prevTotalBalance, currentAccount) =>
+        prevTotalBalance +
+        currentAccount.entries.reduce(
+          (prevAccountBalance, { type, value }) =>
+            prevAccountBalance + (type === "INCOME" ? value : -value),
+          0
+        ),
+      0
+    )
+  )
+  const formattedTotalBalance = formatToBRLCurrency(totalBalance)
+
   const navigate = useNavigate()
 
   const goToCreation = (entryType: EntryTypes) => {
@@ -69,7 +83,7 @@ const HomeScreen = (): JSX.Element => {
       <Date>16 de Julho de 2022</Date>
       <Greeting>Oi, Cleberson!</Greeting>
       <p>
-        Seu saldo atual é <Price>R$1.219,32</Price>
+        Seu saldo atual é <Price>{formattedTotalBalance}</Price>
       </p>
       <Actions>
         <CreateIncomeButton onClick={() => goToCreation("INCOME")}>

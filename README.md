@@ -22,9 +22,9 @@ npm run desktop
 ## Tasks
 - [X] Create global store with zustand
 - [X] Persist the data
-- [] Add DevTools for Global State Debugging
+- [X] Add DevTools for Global State Debugging
+- [X] Show balance based on incomes/expenses of all accounts
 - [] Allow exportation of the data
-- [] Show balance based on incomes/expenses
 - [] Create incomes/expenses from a form
 - [] Allow creation of more accounts
 - [] Permit future incomes/expenses
