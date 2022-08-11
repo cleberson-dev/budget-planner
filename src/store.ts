@@ -1,5 +1,6 @@
 import createStore from "zustand"
 import { persist } from "zustand/middleware"
+import { mountStoreDevtool } from "simple-zustand-devtools"
 import * as data from "./data"
 
 type AppState = {
@@ -11,7 +12,7 @@ type DeserializedAccount = Omit<Account, "createdAt" | "entries"> & {
   entries: (Omit<Entry, "createdAt"> & { createdAt: string })[]
 }
 
-const store = createStore(
+const useStore = createStore(
   persist<AppState>(
     () => ({
       accounts: data.accounts,
@@ -35,4 +36,8 @@ const store = createStore(
   )
 )
 
-export default store
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("Store", useStore)
+}
+
+export default useStore

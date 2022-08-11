@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { app, BrowserWindow } = require('electron')
+const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -17,7 +18,12 @@ function createWindow() {
 }
 
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  installExtension(REACT_DEVELOPER_TOOLS)
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err))
+  createWindow()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform === 'darwin') return
