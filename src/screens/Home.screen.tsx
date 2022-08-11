@@ -3,6 +3,8 @@ import EntryList from "../components/EntryList"
 import useStore from "../store"
 import { useNavigate } from "react-router-dom"
 import { formatToBRLCurrency } from "../utils"
+import format from "date-fns/format"
+import ptBR from "date-fns/locale/pt-BR"
 
 const Greeting = styled.h2`
   margin: 0;
@@ -13,7 +15,7 @@ const Price = styled.strong`
   font-weight: bold;
 `
 
-const Date = styled.p`
+const Today = styled.p`
   text-align: center;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -78,9 +80,13 @@ const HomeScreen = (): JSX.Element => {
     navigate("/create", { state: { entryType } })
   }
 
+  const formattedToday = format(new Date(), `d 'de' LLLL 'de' yyyy`, {
+    locale: ptBR,
+  })
+
   return (
     <main>
-      <Date>16 de Julho de 2022</Date>
+      <Today>{formattedToday}</Today>
       <Greeting>Oi, Cleberson!</Greeting>
       <p>
         Seu saldo atual é <Price>{formattedTotalBalance}</Price>
