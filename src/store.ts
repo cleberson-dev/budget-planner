@@ -23,7 +23,7 @@ const useStore = createStore(
           accounts: state.accounts.map((account) => {
             const newEntry: Entry = {
               id: uuid(),
-              createdAt: new Date(),
+              createdAt: payload.createdAt,
               accountId: payload.accountId,
               description: payload.description,
               type: payload.type,

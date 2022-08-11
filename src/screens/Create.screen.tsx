@@ -76,7 +76,14 @@ const CreateScreen = (): JSX.Element => {
   const location = useLocation()
   const navigate = useNavigate()
   const entryType = (location.state as any).entryType as string
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      value: "",
+      description: "",
+      accountId: "",
+      createdAt: new Date().toISOString().split("T")[0],
+    },
+  })
   const accounts = useStore((state) => state.accounts)
   const addEntry = useStore((state) => state.addEntry)
 
