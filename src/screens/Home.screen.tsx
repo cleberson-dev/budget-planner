@@ -13,6 +13,14 @@ const Greeting = styled.h2`
 const Price = styled.strong`
   display: block;
   font-weight: bold;
+  font-size: 1.5rem;
+`
+
+const IncomePrice = styled(Price)`
+  color: #2b9348;
+`
+const ExpensePrice = styled(Price)`
+  color: #ef233c;
 `
 
 const Today = styled.p`
@@ -56,6 +64,10 @@ const CreateIncomeButton = styled(Button)`
   background: #2b9348;
 `
 
+const EntryLabel = styled.span`
+  font-size: 0.9rem;
+`
+
 const HomeScreen = (): JSX.Element => {
   const entries = useStore((state) =>
     state.accounts
@@ -95,8 +107,47 @@ const HomeScreen = (): JSX.Element => {
     )
   )
 
+  // Month Incomes
+  const monthIncomes = useStore((state) =>
+    state.accounts.reduce(
+      (prevFutureBalance, currentAccount) =>
+        prevFutureBalance +
+        currentAccount.entries
+          .filter(
+            (entry) =>
+              entry.value >= 0 && entry.createdAt.getMonth() === currentMonth
+          )
+          .reduce(
+            (prevAccountBalance, entry) => prevAccountBalance + entry.value,
+            0
+          ),
+      0
+    )
+  )
+
+  // Month Expenses
+  const monthExpenses = useStore((state) =>
+    state.accounts.reduce(
+      (prevFutureBalance, currentAccount) =>
+        prevFutureBalance +
+        currentAccount.entries
+          .filter(
+            (entry) =>
+              entry.value < 0 && entry.createdAt.getMonth() === currentMonth
+          )
+          .reduce(
+            (prevAccountBalance, entry) =>
+              prevAccountBalance + Math.abs(entry.value),
+            0
+          ),
+      0
+    )
+  )
+
   const formattedCurrentBalance = formatToBRLCurrency(currentBalance)
   const formattedFutureBalance = formatToBRLCurrency(futureBalance)
+  const formattedMonthIncomes = formatToBRLCurrency(monthIncomes)
+  const formattedMonthExpenses = formatToBRLCurrency(monthExpenses)
 
   const navigate = useNavigate()
 
@@ -112,12 +163,33 @@ const HomeScreen = (): JSX.Element => {
     <main>
       <Today>{formattedToday}</Today>
       <Greeting>Oi, Cleberson!</Greeting>
-      <p>
-        Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
-      </p>
-      <p>
-        Seu saldo no fim do mês será <Price>{formattedFutureBalance}</Price>
-      </p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <p>
+          Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
+        </p>
+        <p style={{ textAlign: "right" }}>
+          Seu saldo no fim do mês será <Price>{formattedFutureBalance}</Price>
+        </p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "2rem",
+        }}
+      >
+        <EntryLabel>
+          Receitas <IncomePrice>+{formattedMonthIncomes}</IncomePrice>
+        </EntryLabel>
+        <EntryLabel style={{ textAlign: "right" }}>
+          Despesas <ExpensePrice>-{formattedMonthExpenses}</ExpensePrice>
+        </EntryLabel>
+      </div>
       <Actions>
         <CreateIncomeButton onClick={() => goToCreation("INCOME")}>
           Criar receita
