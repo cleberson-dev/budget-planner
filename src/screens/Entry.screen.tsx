@@ -76,17 +76,36 @@ const EntryScreen = (): JSX.Element => {
   const location = useLocation()
   const navigate = useNavigate()
   const entry = (location.state as any).entry as Entry
+  const entryType = (location.state as any).entryType as string
+
+  const type = (location.state as any).type as string
+  const isNew = type === "new"
+
   const { register, getValues } = useForm({
     defaultValues: {
-      value: `${entry.value}`,
-      description: entry.description,
-      accountId: entry.accountId,
-      createdAt: entry.createdAt.toISOString().split("T")[0],
+      value: isNew ? "" : `${entry.value}`,
+      description: isNew ? "" : entry.description,
+      accountId: isNew ? "" : entry.accountId,
+      createdAt: isNew ? "" : entry.createdAt.toISOString().split("T")[0],
     },
   })
   const accounts = useStore((state) => state.accounts)
+  const addEntry = useStore((state) => state.addEntry)
   const removeEntry = useStore((state) => state.removeEntry)
   const updateEntry = useStore((state) => state.updateEntry)
+
+  const onCreateEntry = () => {
+    const newEntry = getValues()
+    addEntry({
+      accountId: newEntry.accountId,
+      description: newEntry.description,
+      value: Number(newEntry.value),
+      type: entryType.toUpperCase() as EntryTypes,
+      createdAt: new Date(newEntry.createdAt),
+    })
+
+    navigate("/")
+  }
 
   const onUpdateEntry = () => {
     const changedEntry = getValues()
@@ -148,8 +167,14 @@ const EntryScreen = (): JSX.Element => {
         </FormGroup>
       </Form>
 
-      <Button onClick={onUpdateEntry}>Update</Button>
-      <Button onClick={onRemoveEntry}>Remove</Button>
+      {isNew ? (
+        <Button onClick={onCreateEntry}>Create</Button>
+      ) : (
+        <>
+          <Button onClick={onUpdateEntry}>Update</Button>
+          <Button onClick={onRemoveEntry}>Remove</Button>
+        </>
+      )}
     </Main>
   )
 }

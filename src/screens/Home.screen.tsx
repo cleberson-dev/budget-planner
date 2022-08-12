@@ -77,7 +77,7 @@ const HomeScreen = (): JSX.Element => {
   const navigate = useNavigate()
 
   const goToCreation = (entryType: EntryTypes) => {
-    navigate("/create", { state: { entryType } })
+    navigate("/entry", { state: { entryType, type: "new" } })
   }
 
   const formattedToday = format(new Date(), `d 'de' LLLL 'de' yyyy`, {
@@ -102,7 +102,9 @@ const HomeScreen = (): JSX.Element => {
 
       <EntryList
         list={entries.slice(0, 5)}
-        onEntryClick={(entry) => navigate("/entry", { state: { entry } })}
+        onEntryClick={(entry) =>
+          navigate("/entry", { state: { entry, type: "edit" } })
+        }
       />
     </main>
   )

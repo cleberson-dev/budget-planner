@@ -28,6 +28,7 @@ npm run desktop
 - [X] Show Today on Home Header
 - [X] Set today as default for entry creation
 - [X] Edit/Remove entries
+- [X] Make Entry form reusable for both Create/Edit/Remove screens
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Change defining expense/income based on positive/negative instead of entry type

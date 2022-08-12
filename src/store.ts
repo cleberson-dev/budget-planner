@@ -3,7 +3,6 @@ import { persist } from "zustand/middleware"
 import { mountStoreDevtool } from "simple-zustand-devtools"
 import * as data from "./data"
 import { v4 as uuid } from "uuid"
-import EntryList from "./components/EntryList"
 
 type AppState = {
   accounts: Account[]
