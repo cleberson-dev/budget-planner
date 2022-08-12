@@ -15,7 +15,7 @@ const Form = styled.form`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  margin-top: 2rem;
 `
 
 const Label = styled.label`
@@ -70,6 +70,19 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
+
+const BackLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: white;
+
+  img {
+    width: 24px;
+    margin-right: 4px;
+  }
 `
 
 const EntryScreen = (): JSX.Element => {
@@ -131,7 +144,10 @@ const EntryScreen = (): JSX.Element => {
   return (
     <Main>
       <Header>
-        <Link to="/">Back</Link>
+        <BackLink to="/">
+          <img src="/arrow-back.svg" alt="Back link icon" />
+          Voltar
+        </BackLink>
       </Header>
 
       <Form id="entryForm">

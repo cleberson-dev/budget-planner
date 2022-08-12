@@ -37,6 +37,7 @@ npm run desktop
 - [X] Show expenses on one side and expenses on the other side
 - [X] Separate selectors/hooks for balances, incomes, entries
 - [X] Fix current date when creating a new entry
+- [X] Show icon for back link
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Show current and future balance for the end of the month
