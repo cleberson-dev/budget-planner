@@ -58,7 +58,10 @@ const CreateIncomeButton = styled(Button)`
 
 const HomeScreen = (): JSX.Element => {
   const entries = useStore((state) =>
-    state.accounts.map((acc) => acc.entries).flat()
+    state.accounts
+      .map((acc) => acc.entries)
+      .flat()
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
   )
   const totalBalance = useStore((state) =>
     state.accounts.reduce(
