@@ -33,6 +33,7 @@ npm run desktop
 - [X] Show account name for entries
 - [X] Permit future incomes/expenses
 - [X] Change defining expense/income based on positive/negative instead of entry type
+- [X] Show future balance
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Show current and future balance for the end of the month

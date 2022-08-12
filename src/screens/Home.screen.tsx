@@ -63,12 +63,14 @@ const HomeScreen = (): JSX.Element => {
       .flat()
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
   )
+
+  const today = Date.now()
   const currentBalance = useStore((state) =>
     state.accounts.reduce(
       (prevTotalBalance, currentAccount) =>
         prevTotalBalance +
         currentAccount.entries
-          .filter((entry) => entry.paid)
+          .filter((entry) => entry.paid && entry.createdAt.getTime() <= today)
           .reduce(
             (prevAccountBalance, { value }) => prevAccountBalance + value,
             0
@@ -76,7 +78,25 @@ const HomeScreen = (): JSX.Element => {
       0
     )
   )
+
+  // Future Balance
+  const currentMonth = new Date().getMonth()
+  const futureBalance = useStore((state) =>
+    state.accounts.reduce(
+      (prevFutureBalance, currentAccount) =>
+        prevFutureBalance +
+        currentAccount.entries
+          .filter((entry) => entry.createdAt.getMonth() === currentMonth)
+          .reduce(
+            (prevAccountBalance, { value }) => prevAccountBalance + value,
+            0
+          ),
+      0
+    )
+  )
+
   const formattedCurrentBalance = formatToBRLCurrency(currentBalance)
+  const formattedFutureBalance = formatToBRLCurrency(futureBalance)
 
   const navigate = useNavigate()
 
@@ -94,6 +114,9 @@ const HomeScreen = (): JSX.Element => {
       <Greeting>Oi, Cleberson!</Greeting>
       <p>
         Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
+      </p>
+      <p>
+        Seu saldo no fim do mês será <Price>{formattedFutureBalance}</Price>
       </p>
       <Actions>
         <CreateIncomeButton onClick={() => goToCreation("INCOME")}>
