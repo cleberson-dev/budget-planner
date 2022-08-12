@@ -5,6 +5,13 @@ import { useNavigate } from "react-router-dom"
 import { formatToBRLCurrency } from "../utils"
 import format from "date-fns/format"
 import ptBR from "date-fns/locale/pt-BR"
+import {
+  currentBalanceSelector,
+  entriesSelector,
+  futureBalanceSelector,
+  monthExpensesSelector,
+  monthIncomesSelector,
+} from "../store/selectors"
 
 const Greeting = styled.h2`
   margin: 0;
@@ -69,80 +76,11 @@ const EntryLabel = styled.span`
 `
 
 const HomeScreen = (): JSX.Element => {
-  const entries = useStore((state) =>
-    state.accounts
-      .map((acc) => acc.entries)
-      .flat()
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-  )
-
-  const today = Date.now()
-  const currentBalance = useStore((state) =>
-    state.accounts.reduce(
-      (prevTotalBalance, currentAccount) =>
-        prevTotalBalance +
-        currentAccount.entries
-          .filter((entry) => entry.paid && entry.createdAt.getTime() <= today)
-          .reduce(
-            (prevAccountBalance, { value }) => prevAccountBalance + value,
-            0
-          ),
-      0
-    )
-  )
-
-  // Future Balance
-  const currentMonth = new Date().getMonth()
-  const futureBalance = useStore((state) =>
-    state.accounts.reduce(
-      (prevFutureBalance, currentAccount) =>
-        prevFutureBalance +
-        currentAccount.entries
-          .filter((entry) => entry.createdAt.getMonth() === currentMonth)
-          .reduce(
-            (prevAccountBalance, { value }) => prevAccountBalance + value,
-            0
-          ),
-      0
-    )
-  )
-
-  // Month Incomes
-  const monthIncomes = useStore((state) =>
-    state.accounts.reduce(
-      (prevFutureBalance, currentAccount) =>
-        prevFutureBalance +
-        currentAccount.entries
-          .filter(
-            (entry) =>
-              entry.value >= 0 && entry.createdAt.getMonth() === currentMonth
-          )
-          .reduce(
-            (prevAccountBalance, entry) => prevAccountBalance + entry.value,
-            0
-          ),
-      0
-    )
-  )
-
-  // Month Expenses
-  const monthExpenses = useStore((state) =>
-    state.accounts.reduce(
-      (prevFutureBalance, currentAccount) =>
-        prevFutureBalance +
-        currentAccount.entries
-          .filter(
-            (entry) =>
-              entry.value < 0 && entry.createdAt.getMonth() === currentMonth
-          )
-          .reduce(
-            (prevAccountBalance, entry) =>
-              prevAccountBalance + Math.abs(entry.value),
-            0
-          ),
-      0
-    )
-  )
+  const entries = useStore(entriesSelector)
+  const currentBalance = useStore(currentBalanceSelector)
+  const futureBalance = useStore(futureBalanceSelector)
+  const monthIncomes = useStore(monthIncomesSelector)
+  const monthExpenses = useStore(monthExpensesSelector)
 
   const formattedCurrentBalance = formatToBRLCurrency(currentBalance)
   const formattedFutureBalance = formatToBRLCurrency(futureBalance)

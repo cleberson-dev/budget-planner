@@ -30,3 +30,10 @@ type Account = {
   createdAt: Date
   entries: Entry[]
 }
+
+type AppState = {
+  accounts: Account[]
+  addEntry: (payload: Omit<Entry, "id">) => void
+  updateEntry: (changedEntry: Entry) => void
+  removeEntry: (accountId: string, entryId: string) => void
+}
