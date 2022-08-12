@@ -10,6 +10,7 @@ export const accounts: Account[] = [
         value: 123,
         createdAt: new Date(),
         accountId: "123",
+        paid: true,
       },
       {
         id: "123456789",
@@ -18,6 +19,7 @@ export const accounts: Account[] = [
         value: 123,
         createdAt: new Date(),
         accountId: "123",
+        paid: true,
       },
       {
         id: "123456789",
@@ -26,6 +28,7 @@ export const accounts: Account[] = [
         value: 4200,
         createdAt: new Date(),
         accountId: "123",
+        paid: true,
       },
       {
         id: "123456789",
@@ -34,6 +37,7 @@ export const accounts: Account[] = [
         value: 123,
         createdAt: new Date(),
         accountId: "123",
+        paid: true,
       },
       {
         id: "123456789",
@@ -42,6 +46,7 @@ export const accounts: Account[] = [
         value: 123,
         createdAt: new Date(),
         accountId: "123",
+        paid: true,
       },
     ],
     createdAt: new Date(),

@@ -87,6 +87,7 @@ const EntryScreen = (): JSX.Element => {
       description: isNew ? "" : entry.description,
       accountId: isNew ? "" : entry.accountId,
       createdAt: isNew ? "" : entry.createdAt.toISOString().split("T")[0],
+      paid: isNew ? true : entry.paid,
     },
   })
   const accounts = useStore((state) => state.accounts)
@@ -102,6 +103,7 @@ const EntryScreen = (): JSX.Element => {
       value: Number(newEntry.value),
       type: entryType.toUpperCase() as EntryTypes,
       createdAt: new Date(newEntry.createdAt),
+      paid: newEntry.paid,
     })
 
     navigate("/")
@@ -116,6 +118,7 @@ const EntryScreen = (): JSX.Element => {
       value: Number(changedEntry.value),
       createdAt: new Date(changedEntry.createdAt),
       description: changedEntry.description,
+      paid: changedEntry.paid,
     })
 
     navigate("/")
@@ -145,10 +148,10 @@ const EntryScreen = (): JSX.Element => {
           />
         </FormGroup>
 
-        <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
           <FormGroup>
             <Label>Conta</Label>
-            <Input disabled as="select" {...register("accountId")}>
+            <Input {...register("accountId")} disabled={!isNew} as="select">
               {accounts.map((acc) => (
                 <option value={acc.id}>{acc.name}</option>
               ))}
@@ -157,7 +160,7 @@ const EntryScreen = (): JSX.Element => {
 
           <FormGroup style={{ marginLeft: "2rem" }}>
             <Label>Data</Label>
-            <Input type="date" {...register("createdAt")} />
+            <Input {...register("createdAt")} type="date" />
           </FormGroup>
         </div>
 
@@ -165,6 +168,16 @@ const EntryScreen = (): JSX.Element => {
           <Label>Descrição</Label>
           <Input {...register("description")} width="100%" fullWidth />
         </FormGroup>
+
+        <div style={{ display: "flex" }}>
+          <Input
+            {...register("paid")}
+            id="paid"
+            type="checkbox"
+            style={{ minWidth: "0" }}
+          />
+          <Label htmlFor="paid">Pago</Label>
+        </div>
       </Form>
 
       {isNew ? (

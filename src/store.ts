@@ -30,6 +30,7 @@ const useStore = createStore(
               description: payload.description,
               type: payload.type,
               value: payload.value,
+              paid: payload.paid,
             }
 
             if (payload.accountId !== account.id) {

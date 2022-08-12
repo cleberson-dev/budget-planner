@@ -63,19 +63,21 @@ const HomeScreen = (): JSX.Element => {
       .flat()
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
   )
-  const totalBalance = useStore((state) =>
+  const currentBalance = useStore((state) =>
     state.accounts.reduce(
       (prevTotalBalance, currentAccount) =>
         prevTotalBalance +
-        currentAccount.entries.reduce(
-          (prevAccountBalance, { type, value }) =>
-            prevAccountBalance + (type === "INCOME" ? value : -value),
-          0
-        ),
+        currentAccount.entries
+          .filter((entry) => entry.paid)
+          .reduce(
+            (prevAccountBalance, { type, value }) =>
+              prevAccountBalance + (type === "INCOME" ? value : -value),
+            0
+          ),
       0
     )
   )
-  const formattedTotalBalance = formatToBRLCurrency(totalBalance)
+  const formattedCurrentBalance = formatToBRLCurrency(currentBalance)
 
   const navigate = useNavigate()
 
@@ -92,7 +94,7 @@ const HomeScreen = (): JSX.Element => {
       <Today>{formattedToday}</Today>
       <Greeting>Oi, Cleberson!</Greeting>
       <p>
-        Seu saldo atual é <Price>{formattedTotalBalance}</Price>
+        Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
       </p>
       <Actions>
         <CreateIncomeButton onClick={() => goToCreation("INCOME")}>

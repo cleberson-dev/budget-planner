@@ -20,6 +20,7 @@ type Entry = {
   value: number
   createdAt: Date
   accountId: string
+  paid: boolean
 }
 
 type EntryTypes = "EXPENSE" | "INCOME"
