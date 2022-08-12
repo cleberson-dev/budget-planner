@@ -2,6 +2,7 @@ import styled from "styled-components"
 import ptBR from "date-fns/locale/pt-BR"
 import format from "date-fns/format"
 import { formatToBRLCurrency } from "../utils"
+import useStore from "../store"
 
 type EntryListProps = {
   list: Entry[]
@@ -67,6 +68,7 @@ const Price = styled.p<{ type: EntryTypes }>`
 `
 
 const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
+  const accounts = useStore((state) => state.accounts)
   return (
     <Container>
       {list.map((entry) => (
@@ -77,7 +79,10 @@ const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
             <Details>
               {`${format(entry.createdAt, `d 'de' LLLL 'de' yyyy`, {
                 locale: ptBR,
-              })} - Carteira`}
+              })} - ${
+                accounts.find((acc) => acc.id === entry.accountId)?.name ||
+                "Unknown"
+              }`}
             </Details>
           </Main>
           <Price type={entry.type}>

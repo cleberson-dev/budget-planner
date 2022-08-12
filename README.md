@@ -30,6 +30,7 @@ npm run desktop
 - [X] Edit/Remove entries
 - [X] Make Entry form reusable for both Create/Edit/Remove screens
 - [X] Sort entries by date (descending order)
+- [X] Show account name for entries
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Change defining expense/income based on positive/negative instead of entry type
