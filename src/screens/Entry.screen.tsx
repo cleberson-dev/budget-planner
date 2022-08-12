@@ -83,7 +83,7 @@ const EntryScreen = (): JSX.Element => {
 
   const { register, getValues } = useForm({
     defaultValues: {
-      value: isNew ? "" : `${entry.value}`,
+      value: isNew ? "" : `${Math.abs(entry.value)}`,
       description: isNew ? "" : entry.description,
       accountId: isNew ? "" : entry.accountId,
       createdAt: isNew ? "" : entry.createdAt.toISOString().split("T")[0],
@@ -100,8 +100,7 @@ const EntryScreen = (): JSX.Element => {
     addEntry({
       accountId: newEntry.accountId,
       description: newEntry.description,
-      value: Number(newEntry.value),
-      type: entryType.toUpperCase() as EntryTypes,
+      value: Number(entryType === "INCOME" ? newEntry.value : -newEntry.value),
       createdAt: new Date(newEntry.createdAt),
       paid: newEntry.paid,
     })
@@ -113,9 +112,10 @@ const EntryScreen = (): JSX.Element => {
     const changedEntry = getValues()
     updateEntry({
       id: entry.id,
-      type: entry.type,
       accountId: entry.accountId,
-      value: Number(changedEntry.value),
+      value: Number(
+        entry.value >= 0 ? changedEntry.value : -changedEntry.value
+      ),
       createdAt: new Date(changedEntry.createdAt),
       description: changedEntry.description,
       paid: changedEntry.paid,

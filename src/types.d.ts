@@ -15,7 +15,6 @@ type Category = {
 
 type Entry = {
   id: string
-  type: EntryTypes
   description: string
   value: number
   createdAt: Date

@@ -32,9 +32,9 @@ npm run desktop
 - [X] Sort entries by date (descending order)
 - [X] Show account name for entries
 - [X] Permit future incomes/expenses
+- [X] Change defining expense/income based on positive/negative instead of entry type
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
-- [] Change defining expense/income based on positive/negative instead of entry type
 - [] Show current and future balance for the end of the month
 - [] Suggest already created incomes/expenses
 - [] Reestructure folders and files

@@ -28,7 +28,6 @@ const useStore = createStore(
               createdAt: payload.createdAt,
               accountId: payload.accountId,
               description: payload.description,
-              type: payload.type,
               value: payload.value,
               paid: payload.paid,
             }

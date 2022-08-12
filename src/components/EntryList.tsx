@@ -73,7 +73,7 @@ const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
     <Container>
       {list.map((entry) => (
         <EntryItem key={entry.id} onClick={() => onEntryClick?.(entry)}>
-          <EntryBullet type={entry.type} />
+          <EntryBullet type={entry.value >= 0 ? "INCOME" : "EXPENSE"} />
           <Main>
             <Description>{entry.description}</Description>
             <Details>
@@ -85,8 +85,7 @@ const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
               }`}
             </Details>
           </Main>
-          <Price type={entry.type}>
-            {{ INCOME: "+", EXPENSE: "-" }[entry.type]}{" "}
+          <Price type={entry.value >= 0 ? "INCOME" : "EXPENSE"}>
             {formatToBRLCurrency(entry.value)}
           </Price>
         </EntryItem>

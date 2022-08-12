@@ -70,8 +70,7 @@ const HomeScreen = (): JSX.Element => {
         currentAccount.entries
           .filter((entry) => entry.paid)
           .reduce(
-            (prevAccountBalance, { type, value }) =>
-              prevAccountBalance + (type === "INCOME" ? value : -value),
+            (prevAccountBalance, { value }) => prevAccountBalance + value,
             0
           ),
       0
