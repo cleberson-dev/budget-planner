@@ -86,14 +86,13 @@ const EntryScreen = (): JSX.Element => {
       value: isNew ? "" : `${Math.abs(entry.value)}`,
       description: isNew ? "" : entry.description,
       accountId: isNew ? "" : entry.accountId,
-      createdAt: isNew ? "" : entry.createdAt.toISOString().split("T")[0],
+      createdAt: (isNew ? new Date() : entry.createdAt)
+        .toISOString()
+        .split("T")[0],
       paid: isNew ? true : entry.paid,
     },
   })
-  const accounts = useStore((state) => state.accounts)
-  const addEntry = useStore((state) => state.addEntry)
-  const removeEntry = useStore((state) => state.removeEntry)
-  const updateEntry = useStore((state) => state.updateEntry)
+  const { accounts, addEntry, removeEntry, updateEntry } = useStore()
 
   const onCreateEntry = () => {
     const newEntry = getValues()
