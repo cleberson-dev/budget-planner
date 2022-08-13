@@ -38,6 +38,7 @@ npm run desktop
 - [X] Separate selectors/hooks for balances, incomes, entries
 - [X] Fix current date when creating a new entry
 - [X] Show icon for back link
+- [X] Jump right into the value input when on Entry screen
 - [] Allow exportation of the data
 - [] Allow creation of more accounts
 - [] Show current and future balance for the end of the month

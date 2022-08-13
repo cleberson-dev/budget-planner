@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -103,8 +104,13 @@ const EntryScreen = (): JSX.Element => {
   const navigate = useNavigate()
   const entry = (location.state as any).entry as Entry
   const entryType = (location.state as any).entryType as string
-
   const type = (location.state as any).type as string
+
+  const valueInputRef = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    valueInputRef.current?.focus()
+  }, [])
+
   const isNew = type === "new"
 
   const { register, getValues } = useForm({
@@ -173,6 +179,7 @@ const EntryScreen = (): JSX.Element => {
             placeholder="999.99"
             fullWidth
             style={{ fontSize: "1.75rem" }}
+            ref={valueInputRef}
           />
         </FormGroup>
 
