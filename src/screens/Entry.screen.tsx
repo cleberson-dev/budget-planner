@@ -47,7 +47,7 @@ const FormGroup = styled.div`
 
 const Button = styled.button`
   color: white;
-  background: purple;
+  background: blueviolet;
   font-weight: 600;
   font-family: "Albert Sans", sans-serif;
   border: 0;
@@ -64,6 +64,18 @@ const Button = styled.button`
   :hover {
     opacity: 0.8;
   }
+
+  :not(:last-child) {
+    margin-bottom: 8px;
+  }
+`
+
+const UpdateButton = styled(Button)`
+  background: orange;
+`
+
+const RemoveButton = styled(Button)`
+  background: #ef233c;
 `
 
 const Header = styled.div`
@@ -199,8 +211,8 @@ const EntryScreen = (): JSX.Element => {
         <Button onClick={onCreateEntry}>Create</Button>
       ) : (
         <>
-          <Button onClick={onUpdateEntry}>Update</Button>
-          <Button onClick={onRemoveEntry}>Remove</Button>
+          <UpdateButton onClick={onUpdateEntry}>Update</UpdateButton>
+          <RemoveButton onClick={onRemoveEntry}>Remove</RemoveButton>
         </>
       )}
     </Main>
