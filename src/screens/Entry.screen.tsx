@@ -33,6 +33,7 @@ const Input = styled.input<{ fullWidth?: boolean }>`
   border-radius: 5px;
   padding: 1rem;
   box-sizing: border-box;
+  font-family: "Albert Sans", sans-serif;
   ${(props) => (props.fullWidth ? "width: 100%;" : "min-width: 10rem;")}
 
   :focus {
