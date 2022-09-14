@@ -100,8 +100,10 @@ const BackLink = styled(Link)`
 `
 
 const EntryScreen = (): JSX.Element => {
+  const { accounts, addEntry, removeEntry, updateEntry } = useStore()
   const location = useLocation()
   const navigate = useNavigate()
+
   const entry = (location.state as any).entry as Entry
   const entryType = (location.state as any).entryType as string
   const type = (location.state as any).type as string
@@ -124,7 +126,6 @@ const EntryScreen = (): JSX.Element => {
       paid: isNew ? true : entry.paid,
     },
   })
-  const { accounts, addEntry, removeEntry, updateEntry } = useStore()
 
   const onCreateEntry = () => {
     const newEntry = getValues()
@@ -188,7 +189,9 @@ const EntryScreen = (): JSX.Element => {
             <Label>Conta</Label>
             <Input {...register("accountId")} disabled={!isNew} as="select">
               {accounts.map((acc) => (
-                <option value={acc.id}>{acc.name}</option>
+                <option key={acc.id} value={acc.id}>
+                  {acc.name}
+                </option>
               ))}
             </Input>
           </FormGroup>

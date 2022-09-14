@@ -5,7 +5,7 @@ import { formatToBRLCurrency } from "../utils"
 import useStore from "../store"
 
 type EntryListProps = {
-  list: Entry[]
+  entries: Entry[]
   onEntryClick?: (entry: Entry) => void
 }
 
@@ -67,11 +67,12 @@ const Price = styled.p<{ type: EntryTypes }>`
   color: ${({ type }) => getColorByEntryType(type)};
 `
 
-const EntryList = ({ list, onEntryClick }: EntryListProps): JSX.Element => {
+const EntryList = ({ entries, onEntryClick }: EntryListProps): JSX.Element => {
   const accounts = useStore((state) => state.accounts)
+
   return (
     <Container>
-      {list.map((entry) => (
+      {entries.map((entry) => (
         <EntryItem key={entry.id} onClick={() => onEntryClick?.(entry)}>
           <EntryBullet type={entry.value >= 0 ? "INCOME" : "EXPENSE"} />
           <Main>

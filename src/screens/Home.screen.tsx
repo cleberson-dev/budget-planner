@@ -2,9 +2,7 @@ import styled from "styled-components"
 import EntryList from "../components/EntryList"
 import useStore from "../store"
 import { useNavigate } from "react-router-dom"
-import { formatToBRLCurrency } from "../utils"
-import format from "date-fns/format"
-import ptBR from "date-fns/locale/pt-BR"
+import { formatDate, formatToBRLCurrency } from "../utils"
 import {
   currentBalanceSelector,
   entriesSelector,
@@ -75,6 +73,17 @@ const EntryLabel = styled.span`
   font-size: 0.9rem;
 `
 
+const AccountSummary = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+`
+
+const BalanceArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const HomeScreen = (): JSX.Element => {
   const entries = useStore(entriesSelector)
   const currentBalance = useStore(currentBalanceSelector)
@@ -87,58 +96,48 @@ const HomeScreen = (): JSX.Element => {
   const formattedMonthIncomes = formatToBRLCurrency(monthIncomes)
   const formattedMonthExpenses = formatToBRLCurrency(monthExpenses)
 
+  const formattedToday = formatDate(new Date())
+
   const navigate = useNavigate()
 
   const goToCreation = (entryType: EntryTypes) => {
     navigate("/entry", { state: { entryType, type: "new" } })
   }
 
-  const formattedToday = format(new Date(), `d 'de' LLLL 'de' yyyy`, {
-    locale: ptBR,
-  })
+  const goToIncomeCreation = () => goToCreation("INCOME")
+  const goToExpenseCreation = () => goToCreation("EXPENSE")
 
   return (
     <main>
       <Today>{formattedToday}</Today>
       <Greeting>Oi, Cleberson!</Greeting>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
+      <BalanceArea>
         <p>
           Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
         </p>
         <p style={{ textAlign: "right" }}>
           Seu saldo no fim do mês será <Price>{formattedFutureBalance}</Price>
         </p>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "2rem",
-        }}
-      >
+      </BalanceArea>
+      <AccountSummary>
         <EntryLabel>
           Receitas <IncomePrice>+{formattedMonthIncomes}</IncomePrice>
         </EntryLabel>
         <EntryLabel style={{ textAlign: "right" }}>
           Despesas <ExpensePrice>-{formattedMonthExpenses}</ExpensePrice>
         </EntryLabel>
-      </div>
+      </AccountSummary>
       <Actions>
-        <CreateIncomeButton onClick={() => goToCreation("INCOME")}>
+        <CreateIncomeButton onClick={goToIncomeCreation}>
           Criar receita
         </CreateIncomeButton>
-        <CreateExpenseButton onClick={() => goToCreation("EXPENSE")}>
+        <CreateExpenseButton onClick={goToExpenseCreation}>
           Criar despesa
         </CreateExpenseButton>
       </Actions>
 
       <EntryList
-        list={entries.slice(0, 5)}
+        entries={entries.slice(0, 5)}
         onEntryClick={(entry) =>
           navigate("/entry", { state: { entry, type: "edit" } })
         }
