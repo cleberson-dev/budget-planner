@@ -4,6 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import useStore from "../store"
 
+type LocationState = {
+  entry: Entry
+  entryType: string
+  type: string
+}
+
 const Main = styled.main`
   display: flex;
   flex-direction: column;
@@ -104,9 +110,7 @@ const EntryScreen = (): JSX.Element => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const entry = (location.state as any).entry as Entry
-  const entryType = (location.state as any).entryType as string
-  const type = (location.state as any).type as string
+  const { entry, entryType, type } = location.state as LocationState
 
   const valueInputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
