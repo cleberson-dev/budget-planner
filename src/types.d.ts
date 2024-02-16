@@ -35,5 +35,7 @@ type AppState = {
   accounts: Account[]
   addEntry: (payload: Omit<Entry, "id">) => void
   updateEntry: (changedEntry: Entry) => void
-  removeEntry: (accountId: string, entryId: string) => void
+  removeEntry: (payload: { accountId: string; entryId: string }) => void
 }
+
+type GetActionPayload<T extends string> = Parameters<AppState[T]>[0]

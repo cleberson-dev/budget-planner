@@ -161,7 +161,10 @@ const EntryScreen = (): JSX.Element => {
   }
 
   const onRemoveEntry = () => {
-    removeEntry(entry.accountId, entry.id)
+    removeEntry({
+      accountId: entry.accountId,
+      entryId: entry.id,
+    })
     navigate("/")
   }
 
