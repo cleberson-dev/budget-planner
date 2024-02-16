@@ -15,3 +15,6 @@ export const formatDate = (date: Date) =>
   format(date, `d 'de' LLLL 'de' yyyy`, {
     locale: ptBR,
   })
+
+export const getEntryTypeByValue = (value: number): EntryTypes =>
+  value > 0 ? "INCOME" : "EXPENSE"

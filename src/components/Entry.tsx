@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import { formatDate, formatToBRLCurrency } from "../utils"
+import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline"
+import { formatDate, formatToBRLCurrency, getEntryTypeByValue } from "../utils"
 
 function getColorByEntryType(entryType: EntryTypes) {
   return {
@@ -35,6 +36,9 @@ const EntryBullet = styled.div<{ type: EntryTypes }>`
   background: ${({ type }) => getColorByEntryType(type)};
   opacity: 0.6;
   margin-right: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const Description = styled.p`
@@ -70,12 +74,16 @@ const Entry = ({
   accountName,
   onEntryClick,
 }: Props) => {
-  const type: EntryTypes = value >= 0 ? "INCOME" : "EXPENSE"
+  const type: EntryTypes = getEntryTypeByValue(value)
   const detailsText = `${formatDate(creationDate)} - ${accountName}`
+
+  const Icon = type === "INCOME" ? ArrowDownIcon : ArrowUpIcon
 
   return (
     <EntryItem onClick={onEntryClick}>
-      <EntryBullet type={type} />
+      <EntryBullet type={type}>
+        <Icon width={12} height={12} />
+      </EntryBullet>
       <Main>
         <Description>{description}</Description>
         <Details>{detailsText}</Details>
