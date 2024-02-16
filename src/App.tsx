@@ -23,15 +23,20 @@ const Titlebar = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 30px;
   background-color: #20232a;
+  text-align: center;
+  text-transform: lowercase;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.2);
+  padding: 8px 0;
 `
 
 function App() {
   return (
     <AnimatePresence>
       <Container>
-        <Titlebar />
+        <Titlebar>Budget Planner</Titlebar>
         <Router>
           <Routes>
             <Route index element={<HomeScreen />} />
