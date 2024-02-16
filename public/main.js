@@ -10,6 +10,7 @@ function createWindow() {
       nodeIntegration: true,
       enableRemoteModule: true,
     },
+    titleBarStyle: "hidden",
   })
 
   win.loadURL(process.env.CLIENT_URL)

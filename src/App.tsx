@@ -12,12 +12,26 @@ const Container = styled.div`
   font-size: calc(10px + 2vmin);
   color: white;
   padding: 0 1.25rem;
+  padding-top: 30px;
+`
+
+const Titlebar = styled.div`
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: rgb(0, 0, 0, 0.2);
 `
 
 function App() {
   return (
     <AnimatePresence>
       <Container>
+        <Titlebar />
         <Router>
           <Routes>
             <Route index element={<HomeScreen />} />
