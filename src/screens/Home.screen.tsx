@@ -86,15 +86,20 @@ const BalanceArea = styled.div`
 
 const HomeScreen = (): JSX.Element => {
   const entries = useStore(entriesSelector)
-  const currentBalance = useStore(currentBalanceSelector)
-  const futureBalance = useStore(futureBalanceSelector)
-  const monthIncomes = useStore(monthIncomesSelector)
-  const monthExpenses = useStore(monthExpensesSelector)
-
-  const formattedCurrentBalance = formatToBRLCurrency(currentBalance)
-  const formattedFutureBalance = formatToBRLCurrency(futureBalance)
-  const formattedMonthIncomes = formatToBRLCurrency(monthIncomes)
-  const formattedMonthExpenses = formatToBRLCurrency(monthExpenses)
+  const [
+    formattedCurrentBalance,
+    formattedFutureBalance,
+    formattedMonthIncomes,
+    formattedMonthExpenses,
+  ] = [
+    currentBalanceSelector,
+    futureBalanceSelector,
+    monthIncomesSelector,
+    monthExpensesSelector,
+  ]
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    .map((selector) => useStore(selector) as number)
+    .map(formatToBRLCurrency)
 
   const formattedToday = formatDate(new Date())
 
