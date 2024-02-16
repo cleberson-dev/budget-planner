@@ -70,18 +70,13 @@ const CreateIncomeButton = styled(Button)`
 `
 
 const EntryLabel = styled.span`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 `
 
 const AccountSummary = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
-`
-
-const BalanceArea = styled.div`
-  display: flex;
-  justify-content: space-between;
+  margin: 2rem 0;
 `
 
 const HomeScreen = (): JSX.Element => {
@@ -116,20 +111,18 @@ const HomeScreen = (): JSX.Element => {
     <main>
       <Today>{formattedToday}</Today>
       <Greeting>Oi, Cleberson!</Greeting>
-      <BalanceArea>
-        <p>
-          Seu saldo atual é <Price>{formattedCurrentBalance}</Price>
-        </p>
-        <p style={{ textAlign: "right" }}>
-          Seu saldo no fim do mês será <Price>{formattedFutureBalance}</Price>
-        </p>
-      </BalanceArea>
       <AccountSummary>
         <EntryLabel>
-          Receitas <IncomePrice>+{formattedMonthIncomes}</IncomePrice>
+          Atual <Price>{formattedCurrentBalance}</Price>
         </EntryLabel>
-        <EntryLabel style={{ textAlign: "right" }}>
-          Despesas <ExpensePrice>-{formattedMonthExpenses}</ExpensePrice>
+        <EntryLabel>
+          Receitas <IncomePrice>{formattedMonthIncomes}</IncomePrice>
+        </EntryLabel>
+        <EntryLabel>
+          Despesas <ExpensePrice>{formattedMonthExpenses}</ExpensePrice>
+        </EntryLabel>
+        <EntryLabel>
+          Fim do Mês <Price>{formattedFutureBalance}</Price>
         </EntryLabel>
       </AccountSummary>
       <Actions>
