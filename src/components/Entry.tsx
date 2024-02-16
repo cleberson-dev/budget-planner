@@ -2,13 +2,6 @@ import styled from "styled-components"
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline"
 import { formatDate, formatToBRLCurrency, getEntryTypeByValue } from "../utils"
 
-function getColorByEntryType(entryType: EntryTypes) {
-  return {
-    INCOME: "#2b9348",
-    EXPENSE: "#ef233c",
-  }[entryType]
-}
-
 const EntryItem = styled.li`
   list-style: none;
   padding: 1rem;
@@ -33,7 +26,7 @@ const EntryBullet = styled.div<{ type: EntryTypes }>`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: ${({ type }) => getColorByEntryType(type)};
+  background: ${({ theme, type }) => theme.colors[type.toLowerCase()]};
   opacity: 0.6;
   margin-right: 0.8rem;
   display: flex;
@@ -56,7 +49,7 @@ const Main = styled.div`
 const Price = styled.p<{ type: EntryTypes }>`
   font-weight: 600;
   font-size: 1rem;
-  color: ${({ type }) => getColorByEntryType(type)};
+  color: ${({ theme, type }) => theme.colors[type.toLowerCase()]};
 `
 
 type Props = {

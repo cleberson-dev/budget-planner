@@ -22,10 +22,10 @@ const Price = styled.strong`
 `
 
 const IncomePrice = styled(Price)`
-  color: #2b9348;
+  color: ${({ theme }) => theme.colors.income};
 `
 const ExpensePrice = styled(Price)`
-  color: #ef233c;
+  color: ${({ theme }) => theme.colors.expense};
 `
 
 const Today = styled.p`
@@ -62,11 +62,11 @@ const Button = styled.button`
 `
 
 const CreateExpenseButton = styled(Button)`
-  background: #ef233c;
+  background: ${({ theme }) => theme.colors.expense};
 `
 
 const CreateIncomeButton = styled(Button)`
-  background: #2b9348;
+  background: ${({ theme }) => theme.colors.income};
 `
 
 const EntryLabel = styled.span`

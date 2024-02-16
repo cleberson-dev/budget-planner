@@ -1,8 +1,9 @@
 import { AnimatePresence } from "framer-motion"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import styled from "styled-components"
+import styled, { ThemeProvider } from "styled-components"
 import EntryScreen from "./screens/Entry.screen"
 import HomeScreen from "./screens/Home.screen"
+import theme from "./theme"
 
 const Container = styled.div`
   background-color: #282c34;
@@ -34,17 +35,19 @@ const Titlebar = styled.div`
 
 function App() {
   return (
-    <AnimatePresence>
-      <Container>
-        <Titlebar>Budget Planner</Titlebar>
-        <Router>
-          <Routes>
-            <Route index element={<HomeScreen />} />
-            <Route path="entry" element={<EntryScreen />} />
-          </Routes>
-        </Router>
-      </Container>
-    </AnimatePresence>
+    <ThemeProvider theme={theme}>
+      <AnimatePresence>
+        <Container>
+          <Titlebar>Budget Planner</Titlebar>
+          <Router>
+            <Routes>
+              <Route index element={<HomeScreen />} />
+              <Route path="entry" element={<EntryScreen />} />
+            </Routes>
+          </Router>
+        </Container>
+      </AnimatePresence>
+    </ThemeProvider>
   )
 }
 
